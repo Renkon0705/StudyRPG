@@ -138,23 +138,14 @@ document.getElementById("newName").value;
 let xp =
 Number(document.getElementById("newXP").value);
 
+
+// 現在の購入用Lvを取得
 let level =
 Number(localStorage.getItem("level")) || 1;
 
 
 
-if(level < addCost){
-
-alert(
-"必要Lv："+addCost
-);
-
-return;
-
-}
-
-
-// レベル不足
+// コスト確認
 
 if(level < addCost){
 
@@ -180,21 +171,15 @@ xp:xp
 
 
 
-// レベル消費
+// ★ここでLvを消費
 
-level -= addCost;
+level = level - addCost;
 
-
-if(level < 1){
-
-    level = 1;
-
-}
 
 
 localStorage.setItem(
-    "level",
-    level
+"level",
+level
 );
 
 
@@ -218,6 +203,7 @@ renderItems();
 
 
 updateStatus();
+
 
 }
 

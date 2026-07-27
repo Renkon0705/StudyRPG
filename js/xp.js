@@ -65,7 +65,8 @@ return total;
 function updateStatus(){
 
 
-let data=getLevel(totalXP);
+document.getElementById("level").innerHTML =
+level;
 
 
 

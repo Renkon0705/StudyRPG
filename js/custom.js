@@ -525,31 +525,18 @@ renderItems();
 
 function resetData(){
 
+    if(!confirm("本当に全データをリセットしますか？")){
+        return;
+    }
 
-let result =
-confirm(
-"本当にデータをリセットしますか？"
-);
+    localStorage.removeItem("level");
+    localStorage.removeItem("currentXP");
+    localStorage.removeItem("nextXP");
+    localStorage.removeItem("studyItems");
+    localStorage.removeItem("addCost");
 
-
-
-if(!result){
-
-return;
-
-}
-
-
-
-// 保存データ削除
-
-localStorage.clear();
-
-
-
-// ページ再読み込み
-
-location.reload();
-
+    location.reload();
 
 }
+
+

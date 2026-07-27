@@ -224,9 +224,15 @@ document.getElementById(
 xp += count*item.xp;
 
 
-
 });
 
+// 連日ボーナス
+
+let multiplier =
+getStreakMultiplier();
+
+
+xp *= multiplier;
 
 
 if(xp<=0){

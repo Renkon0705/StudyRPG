@@ -1,9 +1,10 @@
 window.onload=function(){
 
-initCustom();
+
+renderItems();
+
 
 updateStatus();
 
-loadSettingMenu();
 
 };

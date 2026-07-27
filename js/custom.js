@@ -265,6 +265,7 @@ document.getElementById("todayXP").innerHTML=
 
 updateStatus();
 
+updateStreak();
 
 }
 

@@ -279,17 +279,7 @@ return;
 
 
 
-totalXP += xp;
-
-
-
-localStorage.setItem(
-
-"totalXP",
-
-totalXP
-
-);
+addXP(xp);
 
 
 

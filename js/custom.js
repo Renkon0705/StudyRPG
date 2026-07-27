@@ -1,23 +1,18 @@
 let studyItems =
-
 JSON.parse(
 localStorage.getItem("studyItems")
 )
-
 ||
-
 [
+    {
+        name:"映像授業30分",
+        xp:30
+    },
 
-{
-name:"映像授業30分",
-xp:30
-},
-
-{
-name:"英単語100語",
-xp:20
-}
-
+    {
+        name:"英単語100語",
+        xp:20
+    }
 ];
 
 
@@ -25,23 +20,21 @@ let addCost =
 Number(localStorage.getItem("addCost")) || 1;
 
 
+
 function saveItems(){
 
-
-localStorage.setItem(
-
-"studyItems",
-
-JSON.stringify(studyItems)
-
-);
-
+    localStorage.setItem(
+        "studyItems",
+        JSON.stringify(studyItems)
+    );
 
 }
 
 
 
-
+// =================
+// 表示
+// =================
 
 function renderItems(){
 
@@ -55,21 +48,24 @@ document.getElementById("studyList");
 
 
 
+if(!setting || !study){
+    return;
+}
+
+
+
 setting.innerHTML="";
 
 study.innerHTML="";
 
 
 
-
 studyItems.forEach((item,index)=>{
-
 
 
 setting.innerHTML +=
 
 `
-
 <p>
 
 ${item.name}
@@ -90,12 +86,9 @@ ${item.name}
 
 
 
-
-
 study.innerHTML +=
 
 `
-
 <p>
 
 ${item.name}
@@ -104,6 +97,8 @@ ${item.name}
 <input
 
 type="number"
+
+min="0"
 
 id="study${index}"
 
@@ -119,14 +114,18 @@ value="0">
 });
 
 
+updateAddCost();
+
+
 }
 
 
 
 
 
-
-
+// =================
+// 項目追加
+// =================
 
 function addStudyItem(){
 
@@ -136,16 +135,30 @@ document.getElementById("newName").value;
 
 
 let xp =
-Number(document.getElementById("newXP").value);
+Number(
+document.getElementById("newXP").value
+);
 
 
-// 現在の購入用Lvを取得
+
 let level =
-Number(localStorage.getItem("level")) || 1;
+Number(
+localStorage.getItem("level")
+)
+||
+1;
 
 
 
-// コスト確認
+if(name === "" || xp <= 0){
+
+alert("項目名とXPを入力してください");
+
+return;
+
+}
+
+
 
 if(level < addCost){
 
@@ -163,24 +176,32 @@ return;
 
 studyItems.push({
 
-name:name,
+    name:name,
 
-xp:xp
+    xp:xp
 
 });
 
 
 
-// ★ここでLvを消費
 
-level = level - addCost;
-console.log("購入後Lv", level);
+// Lv消費
+
+level -= addCost;
 
 
 localStorage.setItem(
 "level",
 level
 );
+
+
+
+console.log(
+"購入後Lv",
+level
+);
+
 
 
 
@@ -211,13 +232,17 @@ updateStatus();
 
 
 
-
-
+// =================
+// 削除
+// =================
 
 function deleteItem(index){
 
 
-studyItems.splice(index,1);
+studyItems.splice(
+index,
+1
+);
 
 
 saveItems();
@@ -232,9 +257,9 @@ renderItems();
 
 
 
-
-
-
+// =================
+// XP計算
+// =================
 
 function calculateCustomXP(){
 
@@ -247,20 +272,34 @@ let xp=0;
 studyItems.forEach((item,index)=>{
 
 
-let count=
-
-Number(
+let input =
 document.getElementById(
 "study"+index
-).value
 );
 
 
 
-xp += count*item.xp;
+if(!input){
+    return;
+}
+
+
+
+let count =
+Number(input.value)
+||
+0;
+
+
+
+xp += count * item.xp;
+
 
 
 });
+
+
+
 
 // 連日ボーナス
 
@@ -268,10 +307,17 @@ let multiplier =
 getStreakMultiplier();
 
 
+
 xp *= multiplier;
 
 
-if(xp<=0){
+
+xp =
+Math.floor(xp);
+
+
+
+if(xp <= 0){
 
 return;
 
@@ -279,19 +325,19 @@ return;
 
 
 
+
 addXP(xp);
 
 
 
-document.getElementById("todayXP").innerHTML=
+document.getElementById("todayXP").innerHTML =
 
-"+"+xp+" XP";
+"+" + xp + " XP";
 
 
-
-updateStatus();
 
 updateStreak();
+
 
 }
 
@@ -299,21 +345,19 @@ updateStreak();
 
 
 
-
-
-
-
+// =================
+// 設定開閉
+// =================
 
 function toggleSetting(){
 
 
-let menu=
-
+let menu =
 document.getElementById("settingMenu");
 
 
 
-if(menu.style.display==="none"){
+if(menu.style.display === "none"){
 
 menu.style.display="block";
 
@@ -328,22 +372,33 @@ menu.style.display="none";
 
 }
 
+
+
+
+
+// =================
+// 追加コスト表示
+// =================
+
 function updateAddCost(){
 
 
-document.getElementById("addCostText").innerHTML =
+let text =
+document.getElementById("addCostText");
 
-"次の項目追加コスト：Lv."+addCost;
 
 
+if(!text){
+    return;
 }
 
-function updateAddCost(){
 
-document.getElementById("addCostText").innerHTML=
 
-"次の解放コスト：Lv."
+text.innerHTML =
+
+"次の項目解放コスト：Lv."
 +
 addCost;
+
 
 }

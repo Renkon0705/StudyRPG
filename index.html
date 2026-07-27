@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study RPG</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>📚 Study RPG</h1>
+
+<div class="status">
+
+<h2>Lv.<span id="level">1</span></h2>
+
+<div class="bar">
+    <div id="xpBar"></div>
+</div>
+
+<p>
+<span id="currentXP">0</span>
+/
+<span id="nextXP">100</span> XP
+</p>
+
+<p>
+累計XP：
+<span id="totalXP">0</span>
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>今日の勉強入力</h2>
+
+
+<label>
+映像授業30分
+<input id="video" type="number" min="0" value="0">
+</label>
+
+
+<label>
+数学・化学 標準問題
+<input id="normal" type="number" min="0" value="0">
+</label>
+
+
+<label>
+数学・化学 難問
+<input id="hard" type="number" min="0" value="0">
+</label>
+
+
+<label>
+英単語100語
+<input id="words" type="number" min="0" value="0">
+</label>
+
+
+<label>
+一問一答20問
+<input id="quiz" type="number" min="0" value="0">
+</label>
+
+
+<button onclick="calculateXP()">
+XP獲得！
+</button>
+
+
+</div>
+
+
+<div class="result">
+
+<h2>今日のXP</h2>
+
+<p id="todayXP">
+0 XP
+</p>
+
+</div>
+
+
+</div>
+
+
+<div id="popup">
+LEVEL UP!!
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>

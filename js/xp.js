@@ -38,7 +38,25 @@ next:need
 }
 
 
+function getXPFromLevel(level){
 
+let total=0;
+
+let need=100;
+
+
+for(let i=1;i<level;i++){
+
+total+=need;
+
+need=Math.floor(need*1.2);
+
+}
+
+
+return total;
+
+}
 
 
 function updateStatus(){

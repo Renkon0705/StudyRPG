@@ -1,115 +1,43 @@
-let level =
-Number(localStorage.getItem("level")) || 1;
+// =================
+// Study RPG XP System
+// =================
 
+
+// 現在レベル
+
+let level =
+Number(
+localStorage.getItem("level")
+)
+|| 1;
+
+
+
+// 現在Lv内XP
 
 let currentXP =
-Number(localStorage.getItem("currentXP")) || 0;
+Number(
+localStorage.getItem("currentXP")
+)
+|| 0;
 
+
+
+// 次レベル必要XP
 
 let nextXP =
-Number(localStorage.getItem("nextXP")) || 100;
-
-
-function getLevel(xp){
-
-
-let level=1;
-
-let need=100;
+Number(
+localStorage.getItem("nextXP")
+)
+|| 100;
 
 
 
-while(xp>=need){
-
-xp-=need;
-
-level++;
-
-need=Math.floor(need*1.2);
-
-}
 
 
-
-return {
-
-level:level,
-
-current:xp,
-
-next:need
-
-};
-
-
-}
-
-
-function getXPFromLevel(level){
-
-let total=0;
-
-let need=100;
-
-
-for(let i=1;i<level;i++){
-
-total+=need;
-
-need=Math.floor(need*1.2);
-
-}
-
-
-return total;
-
-}
-
-
-function updateStatus(){
-
-
-document.getElementById("level").innerHTML =
-level;
-
-
-
-document.getElementById("currentXP").innerHTML =
-currentXP;
-
-
-
-document.getElementById("nextXP").innerHTML =
-nextXP;
-
-
-
-document.getElementById("xpBar").style.width =
-(currentXP / nextXP * 100)+"%";
-
-
-}
-
-function checkLevelUp(){
-
-let data = getLevel(totalXP);
-
-
-// XPが到達したレベルまで上げる
-
-if(level < data.level){
-
-    level = data.level;
-
-
-    localStorage.setItem(
-        "level",
-        level
-    );
-
-}
-
-}
+// =================
+// XP獲得
+// =================
 
 function addXP(amount){
 
@@ -117,6 +45,8 @@ function addXP(amount){
 currentXP += amount;
 
 
+
+// レベルアップ判定
 
 while(currentXP >= nextXP){
 
@@ -127,14 +57,18 @@ while(currentXP >= nextXP){
     level++;
 
 
+
+    // 次Lv必要XP増加
+
     nextXP =
     Math.floor(nextXP * 1.2);
-
 
 
 }
 
 
+
+// 保存
 
 localStorage.setItem(
 "level",
@@ -154,6 +88,98 @@ nextXP
 );
 
 
+
+// 表示更新
+
 updateStatus();
 
+
+// レベルアップ演出
+
+if(typeof showLevelPopup === "function"){
+
+    showLevelPopup();
+
 }
+
+
+}
+
+
+
+
+
+// =================
+// 表示更新
+// =================
+
+function updateStatus(){
+
+
+
+let lv =
+document.getElementById("level");
+
+
+let now =
+document.getElementById("currentXP");
+
+
+let next =
+document.getElementById("nextXP");
+
+
+let bar =
+document.getElementById("xpBar");
+
+
+
+if(lv){
+
+lv.innerHTML =
+level;
+
+}
+
+
+
+if(now){
+
+now.innerHTML =
+currentXP;
+
+}
+
+
+
+if(next){
+
+next.innerHTML =
+nextXP;
+
+}
+
+
+
+if(bar){
+
+bar.style.width =
+(currentXP / nextXP * 100)
++
+"%";
+
+}
+
+
+
+}
+
+
+
+
+
+// =================
+// 初期表示
+// =================
+
+updateStatus();

@@ -347,3 +347,13 @@ document.getElementById("addCostText").innerHTML =
 
 
 }
+
+function updateAddCost(){
+
+document.getElementById("addCostText").innerHTML=
+
+"次の解放コスト：Lv."
++
+addCost;
+
+}

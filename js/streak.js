@@ -71,3 +71,8 @@ return Math.pow(1.1, streak);
 
 
 }
+document.getElementById("streakBonus").innerHTML =
+
+"🔥 連日ボーナス ×"
++
+getStreakMultiplier().toFixed(2);

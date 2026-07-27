@@ -64,7 +64,8 @@ return total;
 
 function updateStatus(){
 
-
+level =
+Number(localStorage.getItem("level")) || 1;
 let data = getLevel(totalXP);
 
 

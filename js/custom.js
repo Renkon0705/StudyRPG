@@ -174,7 +174,7 @@ xp:xp
 // ★ここでLvを消費
 
 level = level - addCost;
-
+console.log("購入後Lv", level);
 
 
 localStorage.setItem(

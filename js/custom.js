@@ -140,8 +140,6 @@ Number(document.getElementById("newXP").value);
 
 
 
-// 現在レベル取得
-
 let level =
 getLevel(totalXP).level;
 
@@ -152,42 +150,12 @@ getLevel(totalXP).level;
 if(level < addCost){
 
 alert(
-"レベル不足！\n必要Lv："+addCost
+"必要Lv："+addCost
 );
 
 return;
 
 }
-
-
-
-// 入力確認
-
-if(name==="" || xp<=0){
-
-return;
-
-}
-
-
-
-// レベル消費
-
-level -= addCost;
-
-
-
-// XPを逆算して保存
-
-totalXP =
-(level-1)*100;
-
-
-
-localStorage.setItem(
-"totalXP",
-totalXP
-);
 
 
 
@@ -203,7 +171,17 @@ xp:xp
 
 
 
-saveItems();
+// レベル消費
+
+totalXP -= 
+getXPFromLevel(addCost);
+
+
+
+localStorage.setItem(
+"totalXP",
+totalXP
+);
 
 
 
@@ -219,11 +197,13 @@ addCost
 
 
 
+saveItems();
+
+
 renderItems();
 
+
 updateStatus();
-
-
 
 }
 

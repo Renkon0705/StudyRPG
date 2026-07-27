@@ -115,3 +115,50 @@ if(level < data.level){
 }
 
 }
+
+function addXP(amount){
+
+
+currentXP += amount;
+
+
+
+while(currentXP >= nextXP){
+
+
+    currentXP -= nextXP;
+
+
+    level++;
+
+
+    nextXP =
+    Math.floor(nextXP * 1.2);
+
+
+
+}
+
+
+
+localStorage.setItem(
+"level",
+level
+);
+
+
+localStorage.setItem(
+"currentXP",
+currentXP
+);
+
+
+localStorage.setItem(
+"nextXP",
+nextXP
+);
+
+
+updateStatus();
+
+}

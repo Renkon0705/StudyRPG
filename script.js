@@ -633,200 +633,136 @@ localStorage.getItem("studyItems")
 )
 ||
 [
-{
-name:"映像授業30分",
-xp:30
-},
-{
-name:"英単語100語",
-xp:20
-}
+    {
+        name:"映像授業30分",
+        xp:30
+    },
+    {
+        name:"英単語100語",
+        xp:20
+    }
 ];
 
 
-
 // 保存
-
 function saveItems(){
 
-localStorage.setItem(
-"studyItems",
-JSON.stringify(studyItems)
-);
+    localStorage.setItem(
+        "studyItems",
+        JSON.stringify(studyItems)
+    );
 
 }
 
 
-
 // 項目追加
-
 function addStudyItem(){
 
-let name=
-document.getElementById("newName").value;
+    let name =
+    document.getElementById("newName").value;
 
 
-let xp=
-Number(document.getElementById("newXP").value);
+    let xp =
+    Number(document.getElementById("newXP").value);
 
 
-
-if(!name || !xp)return;
-
-
-
-studyItems.push({
-
-name:name,
-xp:xp
-
-});
+    if(name === "" || xp <= 0){
+        return;
+    }
 
 
-saveItems();
+    studyItems.push({
+
+        name:name,
+        xp:xp
+
+    });
 
 
-renderItems();
+    saveItems();
 
+    renderItems();
+
+
+    document.getElementById("newName").value="";
+    document.getElementById("newXP").value="";
 
 }
 
 
 
 // 表示
-
 function renderItems(){
 
-
-let setting =
-document.getElementById("settingList");
-
-
-let study =
-document.getElementById("studyList");
+    let setting =
+    document.getElementById("settingList");
 
 
-
-setting.innerHTML="";
-
-study.innerHTML="";
+    let study =
+    document.getElementById("studyList");
 
 
-
-studyItems.forEach((item,index)=>{
-
-
-setting.innerHTML += `
-
-<p>
-
-${item.name}
-
-(${item.xp}XP)
-
-<button onclick="deleteItem(${index})">
-
-削除
-
-</button>
-
-</p>
-
-`;
+    if(!setting || !study){
+        return;
+    }
 
 
+    setting.innerHTML="";
+
+    study.innerHTML="";
 
 
-study.innerHTML += `
-
-<div>
-
-${item.name}
-
-<input 
-type="number"
-min="0"
-id="study${index}"
-value="0">
-
-</div>
-
-`;
+    studyItems.forEach((item,index)=>{
 
 
+        setting.innerHTML +=
+        `
+        <p>
+        ${item.name}
+        (${item.xp}XP)
 
-});
+        <button onclick="deleteItem(${index})">
+        削除
+        </button>
+
+        </p>
+        `;
+
+
+        study.innerHTML +=
+        `
+        <p>
+        ${item.name}
+
+        <input 
+        type="number"
+        min="0"
+        id="study${index}"
+        value="0">
+
+        </p>
+        `;
+
+
+    });
 
 
 }
-
 
 
 
 // 削除
-
 function deleteItem(index){
 
-studyItems.splice(index,1);
+    studyItems.splice(index,1);
 
-saveItems();
+    saveItems();
 
-renderItems();
-
-}
-
-
-
-// XP計算
-
-function calculateCustomXP(){
-
-
-let xp=0;
-
-
-studyItems.forEach((item,index)=>{
-
-
-let count =
-Number(
-document.getElementById(
-"study"+index
-).value
-);
-
-
-xp += count * item.xp;
-
-
-});
-
-
-
-totalXP += xp;
-
-
-localStorage.setItem(
-"totalXP",
-totalXP
-);
-
-
-
-document.getElementById("todayXP")
-.innerHTML =
-"+"+xp+" XP";
-
-
-updateStatus();
-
+    renderItems();
 
 }
 
 
 
-
+// 初期表示
 renderItems();
-
-
-updateStatus();

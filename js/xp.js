@@ -70,28 +70,22 @@ level;
 
 
 
-document.getElementById("level").innerHTML=
-data.level;
+let data = getLevel(totalXP);
 
 
 
-document.getElementById("currentXP").innerHTML=
+document.getElementById("currentXP").innerHTML =
 data.current;
 
 
 
-document.getElementById("nextXP").innerHTML=
+document.getElementById("nextXP").innerHTML =
 data.next;
 
 
 
-document.getElementById("totalXP").innerHTML=
-totalXP;
-
-
-
-document.getElementById("xpBar").style.width=
-(data.current/data.next*100)+"%";
+document.getElementById("xpBar").style.width =
+(data.current / data.next * 100) + "%";
 
 
 }

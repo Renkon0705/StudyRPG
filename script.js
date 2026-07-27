@@ -622,5 +622,211 @@ achievementCheck();
 
 }
 
+// =================
+// Ver4 カスタム項目
+// =================
+
+
+let studyItems =
+JSON.parse(
+localStorage.getItem("studyItems")
+)
+||
+[
+{
+name:"映像授業30分",
+xp:30
+},
+{
+name:"英単語100語",
+xp:20
+}
+];
+
+
+
+// 保存
+
+function saveItems(){
+
+localStorage.setItem(
+"studyItems",
+JSON.stringify(studyItems)
+);
+
+}
+
+
+
+// 項目追加
+
+function addStudyItem(){
+
+let name=
+document.getElementById("newName").value;
+
+
+let xp=
+Number(document.getElementById("newXP").value);
+
+
+
+if(!name || !xp)return;
+
+
+
+studyItems.push({
+
+name:name,
+xp:xp
+
+});
+
+
+saveItems();
+
+
+renderItems();
+
+
+}
+
+
+
+// 表示
+
+function renderItems(){
+
+
+let setting =
+document.getElementById("settingList");
+
+
+let study =
+document.getElementById("studyList");
+
+
+
+setting.innerHTML="";
+
+study.innerHTML="";
+
+
+
+studyItems.forEach((item,index)=>{
+
+
+setting.innerHTML += `
+
+<p>
+
+${item.name}
+
+(${item.xp}XP)
+
+<button onclick="deleteItem(${index})">
+
+削除
+
+</button>
+
+</p>
+
+`;
+
+
+
+
+study.innerHTML += `
+
+<div>
+
+${item.name}
+
+<input 
+type="number"
+min="0"
+id="study${index}"
+value="0">
+
+</div>
+
+`;
+
+
+
+});
+
+
+}
+
+
+
+
+// 削除
+
+function deleteItem(index){
+
+studyItems.splice(index,1);
+
+saveItems();
+
+renderItems();
+
+}
+
+
+
+// XP計算
+
+function calculateCustomXP(){
+
+
+let xp=0;
+
+
+studyItems.forEach((item,index)=>{
+
+
+let count =
+Number(
+document.getElementById(
+"study"+index
+).value
+);
+
+
+xp += count * item.xp;
+
+
+});
+
+
+
+totalXP += xp;
+
+
+localStorage.setItem(
+"totalXP",
+totalXP
+);
+
+
+
+document.getElementById("todayXP")
+.innerHTML =
+"+"+xp+" XP";
+
+
+updateStatus();
+
+
+}
+
+
+
+
+renderItems();
+
 
 updateStatus();

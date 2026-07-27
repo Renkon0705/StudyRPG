@@ -96,6 +96,8 @@ function checkLevelUp(){
 let data = getLevel(totalXP);
 
 
+// XPが到達したレベルまで上げる
+
 if(level < data.level){
 
     level = data.level;

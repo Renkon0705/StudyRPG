@@ -21,7 +21,8 @@ xp:20
 ];
 
 
-
+let addCost =
+Number(localStorage.getItem("addCost")) || 1;
 
 
 function saveItems(){
@@ -130,20 +131,37 @@ value="0">
 function addStudyItem(){
 
 
-
-let name=
-
+let name =
 document.getElementById("newName").value;
 
 
+let xp =
+Number(document.getElementById("newXP").value);
 
-let xp=
 
-Number(
-document.getElementById("newXP").value
+
+// 現在レベル取得
+
+let level =
+getLevel(totalXP).level;
+
+
+
+// レベル不足
+
+if(level < addCost){
+
+alert(
+"レベル不足！\n必要Lv："+addCost
 );
 
+return;
 
+}
+
+
+
+// 入力確認
 
 if(name==="" || xp<=0){
 
@@ -152,6 +170,28 @@ return;
 }
 
 
+
+// レベル消費
+
+level -= addCost;
+
+
+
+// XPを逆算して保存
+
+totalXP =
+(level-1)*100;
+
+
+
+localStorage.setItem(
+"totalXP",
+totalXP
+);
+
+
+
+// 項目追加
 
 studyItems.push({
 
@@ -166,7 +206,23 @@ xp:xp
 saveItems();
 
 
+
+// 次回コスト増加
+
+addCost++;
+
+
+localStorage.setItem(
+"addCost",
+addCost
+);
+
+
+
 renderItems();
+
+updateStatus();
+
 
 
 }

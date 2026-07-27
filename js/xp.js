@@ -2,6 +2,9 @@ let totalXP =
 Number(localStorage.getItem("totalXP")) || 0;
 
 
+let level =
+Number(localStorage.getItem("level")) || 1;
+
 
 function getLevel(xp){
 

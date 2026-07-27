@@ -140,10 +140,29 @@ Number(document.getElementById("newXP").value);
 
 
 
-let level =
-getLevel(totalXP).level;
+if(level < addCost){
+
+alert(
+"必要Lv："+addCost
+);
+
+return;
+
+}
 
 
+level -= addCost;
+
+
+if(level < 1){
+    level = 1;
+}
+
+
+localStorage.setItem(
+"level",
+level
+);
 
 // レベル不足
 

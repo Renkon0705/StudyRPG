@@ -105,3 +105,74 @@ margin-top:20px;
 width:60px;
 
 }
+
+/* 勉強項目設定メニュー */
+
+#settingMenu{
+
+background:#fafafa;
+
+padding:20px;
+
+margin-top:15px;
+
+border-radius:15px;
+
+border:1px solid #ddd;
+
+}
+
+
+/* 設定項目 */
+
+#settingList p{
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+background:white;
+
+padding:10px;
+
+margin:8px 0;
+
+border-radius:10px;
+
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+
+}
+
+
+
+/* 入力欄 */
+
+#newName,
+#newXP{
+
+width:40%;
+
+}
+
+
+
+/* 削除ボタン */
+
+#settingList button{
+
+background:#ff6b6b;
+
+color:white;
+
+}
+
+
+/* 追加ボタン */
+
+#settingMenu button{
+
+margin-top:10px;
+
+}

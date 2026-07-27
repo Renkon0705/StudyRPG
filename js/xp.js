@@ -87,7 +87,8 @@ data.next;
 document.getElementById("xpBar").style.width =
 (data.current / data.next * 100) + "%";
 
-
+checkLevelUp();
+    
 }
 
 function checkLevelUp(){

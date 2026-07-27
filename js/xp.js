@@ -3,40 +3,27 @@
 // =================
 
 
-// 現在レベル
+// レベル
 
 let level =
-Number(
-localStorage.getItem("level")
-)
-|| 1;
+Number(localStorage.getItem("level")) || 1;
 
 
-
-// 現在Lv内XP
+// 現在XP
 
 let currentXP =
-Number(
-localStorage.getItem("currentXP")
-)
-|| 0;
-
+Number(localStorage.getItem("currentXP")) || 0;
 
 
 // 次レベル必要XP
 
 let nextXP =
-Number(
-localStorage.getItem("nextXP")
-)
-|| 100;
-
-
+Number(localStorage.getItem("nextXP")) || 100;
 
 
 
 // =================
-// XP獲得
+// XP追加
 // =================
 
 function addXP(amount){
@@ -46,8 +33,6 @@ currentXP += amount;
 
 
 
-// レベルアップ判定
-
 while(currentXP >= nextXP){
 
 
@@ -56,9 +41,6 @@ while(currentXP >= nextXP){
 
     level++;
 
-
-
-    // 次Lv必要XP増加
 
     nextXP =
     Math.floor(nextXP * 1.2);
@@ -70,28 +52,13 @@ while(currentXP >= nextXP){
 
 // 保存
 
-localStorage.setItem(
-"level",
-level
-);
-
-
-localStorage.setItem(
-"currentXP",
-currentXP
-);
-
-
-localStorage.setItem(
-"nextXP",
-nextXP
-);
-
+saveLevelData();
 
 
 // 表示更新
 
 updateStatus();
+
 
 
 // レベルアップ演出
@@ -110,7 +77,71 @@ if(typeof showLevelPopup === "function"){
 
 
 // =================
-// 表示更新
+// Lv変更
+// =================
+
+function changeLevel(amount){
+
+
+level += amount;
+
+
+
+if(level < 1){
+
+    level = 1;
+
+}
+
+
+
+saveLevelData();
+
+
+updateStatus();
+
+
+}
+
+
+
+
+
+// =================
+// 保存
+// =================
+
+function saveLevelData(){
+
+
+localStorage.setItem(
+"level",
+level
+);
+
+
+
+localStorage.setItem(
+"currentXP",
+currentXP
+);
+
+
+
+localStorage.setItem(
+"nextXP",
+nextXP
+);
+
+
+}
+
+
+
+
+
+// =================
+// 表示
 // =================
 
 function updateStatus(){
@@ -171,15 +202,12 @@ bar.style.width =
 }
 
 
-
 }
 
 
 
 
 
-// =================
 // 初期表示
-// =================
 
 updateStatus();

@@ -522,3 +522,34 @@ addCost;
 // 初期表示
 
 renderItems();
+
+function resetData(){
+
+
+let result =
+confirm(
+"本当にデータをリセットしますか？"
+);
+
+
+
+if(!result){
+
+return;
+
+}
+
+
+
+// 保存データ削除
+
+localStorage.clear();
+
+
+
+// ページ再読み込み
+
+location.reload();
+
+
+}

@@ -1,40 +1,77 @@
+// =================
+// 勉強項目
+// =================
+
+
 let studyItems =
+
 JSON.parse(
 localStorage.getItem("studyItems")
 )
-||
-[
-    {
-        name:"映像授業30分",
-        xp:30
-    },
 
-    {
-        name:"英単語100語",
-        xp:20
-    }
+||
+
+[
+
+{
+name:"映像授業30分",
+xp:30
+},
+
+{
+name:"英単語100語",
+xp:20
+}
+
 ];
 
 
-let addCost =
-Number(localStorage.getItem("addCost")) || 1;
 
+
+
+// 項目追加コスト
+
+let addCost =
+
+Number(
+localStorage.getItem("addCost")
+)
+
+||
+
+1;
+
+
+
+
+
+// =================
+// 保存
+// =================
 
 
 function saveItems(){
 
-    localStorage.setItem(
-        "studyItems",
-        JSON.stringify(studyItems)
-    );
+
+localStorage.setItem(
+
+"studyItems",
+
+JSON.stringify(studyItems)
+
+);
+
 
 }
+
+
 
 
 
 // =================
 // 表示
 // =================
+
 
 function renderItems(){
 
@@ -49,7 +86,9 @@ document.getElementById("studyList");
 
 
 if(!setting || !study){
-    return;
+
+return;
+
 }
 
 
@@ -63,9 +102,11 @@ study.innerHTML="";
 studyItems.forEach((item,index)=>{
 
 
+
 setting.innerHTML +=
 
 `
+
 <p>
 
 ${item.name}
@@ -86,9 +127,12 @@ ${item.name}
 
 
 
+
+
 study.innerHTML +=
 
 `
+
 <p>
 
 ${item.name}
@@ -114,6 +158,7 @@ value="0">
 });
 
 
+
 updateAddCost();
 
 
@@ -127,48 +172,70 @@ updateAddCost();
 // 項目追加
 // =================
 
+
 function addStudyItem(){
 
 
+
 let name =
+
 document.getElementById("newName").value;
 
 
+
 let xp =
+
 Number(
 document.getElementById("newXP").value
 );
 
 
 
-let level =
+let currentLevel =
+
 Number(
 localStorage.getItem("level")
 )
+
 ||
+
 1;
+
+
 
 
 
 if(name === "" || xp <= 0){
 
+
 alert("項目名とXPを入力してください");
 
+
 return;
+
 
 }
 
 
 
-if(level < addCost){
+
+
+if(currentLevel < addCost){
+
 
 alert(
+
 "必要Lv："+addCost
+
 );
+
 
 return;
 
+
 }
+
+
 
 
 
@@ -176,31 +243,22 @@ return;
 
 studyItems.push({
 
-    name:name,
+name:name,
 
-    xp:xp
+xp:xp
 
 });
 
 
 
 
+
 // Lv消費
 
-level -= addCost;
-
-
-localStorage.setItem(
-"level",
-level
+changeLevel(
+-addCost
 );
 
-
-
-console.log(
-"購入後Lv",
-level
-);
 
 
 
@@ -210,10 +268,16 @@ level
 addCost++;
 
 
+
 localStorage.setItem(
+
 "addCost",
+
 addCost
+
 );
+
+
 
 
 
@@ -223,10 +287,17 @@ saveItems();
 renderItems();
 
 
-updateStatus();
+
+
+
+document.getElementById("newName").value="";
+
+
+document.getElementById("newXP").value="";
 
 
 }
+
 
 
 
@@ -236,12 +307,16 @@ updateStatus();
 // 削除
 // =================
 
+
 function deleteItem(index){
 
 
 studyItems.splice(
+
 index,
+
 1
+
 );
 
 
@@ -257,15 +332,19 @@ renderItems();
 
 
 
+
+
 // =================
 // XP計算
 // =================
+
 
 function calculateCustomXP(){
 
 
 
-let xp=0;
+let xp = 0;
+
 
 
 
@@ -273,26 +352,37 @@ studyItems.forEach((item,index)=>{
 
 
 let input =
+
 document.getElementById(
+
 "study"+index
+
 );
 
 
 
 if(!input){
-    return;
+
+return;
+
 }
 
 
 
 let count =
+
 Number(input.value)
+
 ||
+
 0;
 
 
 
-xp += count * item.xp;
+
+xp +=
+
+count * item.xp;
 
 
 
@@ -301,9 +391,11 @@ xp += count * item.xp;
 
 
 
-// 連日ボーナス
+
+// 連日倍率
 
 let multiplier =
+
 getStreakMultiplier();
 
 
@@ -312,8 +404,9 @@ xp *= multiplier;
 
 
 
-xp =
-Math.floor(xp);
+xp = Math.floor(xp);
+
+
 
 
 
@@ -326,13 +419,18 @@ return;
 
 
 
+
 addXP(xp);
+
+
 
 
 
 document.getElementById("todayXP").innerHTML =
 
 "+" + xp + " XP";
+
+
 
 
 
@@ -345,60 +443,82 @@ updateStreak();
 
 
 
+
 // =================
 // 設定開閉
 // =================
+
 
 function toggleSetting(){
 
 
 let menu =
+
 document.getElementById("settingMenu");
 
 
 
 if(menu.style.display === "none"){
 
+
 menu.style.display="block";
+
 
 }
 
 else{
 
+
 menu.style.display="none";
 
+
 }
 
 
 }
+
+
 
 
 
 
 
 // =================
-// 追加コスト表示
+// コスト表示
 // =================
+
 
 function updateAddCost(){
 
 
+
 let text =
+
 document.getElementById("addCostText");
 
 
 
-if(!text){
-    return;
-}
-
+if(text){
 
 
 text.innerHTML =
 
 "次の項目解放コスト：Lv."
+
 +
+
 addCost;
 
 
 }
+
+
+}
+
+
+
+
+
+// 初期表示
+
+renderItems();

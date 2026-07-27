@@ -95,3 +95,21 @@ document.getElementById("xpBar").style.width=
 
 
 }
+
+function checkLevelUp(){
+
+let data = getLevel(totalXP);
+
+
+while(level < data.level){
+
+    level++;
+
+    localStorage.setItem(
+        "level",
+        level
+    );
+
+}
+
+}

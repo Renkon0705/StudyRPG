@@ -68,11 +68,6 @@ return total;
 
 function updateStatus(){
 
-level =
-Number(localStorage.getItem("level")) || 1;
-let data = getLevel(totalXP);
-
-
 
 document.getElementById("level").innerHTML =
 level;
@@ -80,17 +75,17 @@ level;
 
 
 document.getElementById("currentXP").innerHTML =
-data.current;
+currentXP;
 
 
 
 document.getElementById("nextXP").innerHTML =
-data.next;
+nextXP;
 
 
 
 document.getElementById("xpBar").style.width =
-(data.current / data.next * 100) + "%";
+(currentXP / nextXP * 100)+"%";
 
 
 }

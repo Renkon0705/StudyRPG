@@ -308,6 +308,318 @@ totalXP;
 document.getElementById("xpBar").style.width=
 (data.current/data.next*100)+"%";
 
+// =================
+// Ver3
+// =================
+
+
+// 勉強回数
+
+let studyCount =
+Number(localStorage.getItem("studyCount")) || 0;
+
+
+
+// ストリーク
+
+let streak =
+Number(localStorage.getItem("streak")) || 0;
+
+
+let lastStudy =
+localStorage.getItem("lastStudy");
+
+
+
+function updateStreak(){
+
+
+let today =
+new Date().toDateString();
+
+
+
+if(lastStudy !== today){
+
+
+let yesterday =
+new Date(Date.now()-86400000)
+.toDateString();
+
+
+
+if(lastStudy===yesterday){
+
+streak++;
+
+}
+
+else{
+
+streak=1;
+
+}
+
+
+localStorage.setItem(
+"lastStudy",
+today
+);
+
+
+localStorage.setItem(
+"streak",
+streak
+);
+
+
+}
+
+
+document.getElementById("streak").innerHTML =
+"🔥 "+streak+"日連続";
+
+}
+
+
+
+
+// レベルアップ確認を上書き
+
+let oldLv =
+getLevel(totalXP).level;
+
+
+
+function levelCheck(){
+
+
+let newLv =
+getLevel(totalXP).level;
+
+
+if(newLv>oldLv){
+
+showLevelPopup();
+
+}
+
+
+oldLv=newLv;
+
+
+}
+
+
+
+function showLevelPopup(){
+
+let p=
+document.getElementById("levelPopup");
+
+
+p.style.display="block";
+
+
+setTimeout(()=>{
+
+p.style.display="none";
+
+},2000);
+
+}
+
+
+
+// 実績
+
+let achievements =
+JSON.parse(
+localStorage.getItem("achievements")
+)
+|| [];
+
+
+
+function achievementCheck(){
+
+
+let list=[];
+
+
+let lv =
+getLevel(totalXP).level;
+
+
+
+if(totalXP>=1)
+list.push("🏆 はじめの一歩");
+
+
+if(lv>=5)
+list.push("🏆 Lv5到達");
+
+
+if(totalXP>=1000)
+list.push("🏆 1000XP突破");
+
+
+if(streak>=7)
+list.push("🏆 7日連続");
+
+
+if(studyCount>=100)
+list.push("🏆 100回勉強");
+
+
+
+achievements=list;
+
+
+localStorage.setItem(
+"achievements",
+JSON.stringify(list)
+);
+
+
+
+displayAchievement();
+
+}
+
+
+
+function displayAchievement(){
+
+
+let ul=
+document.getElementById("achievement");
+
+
+ul.innerHTML="";
+
+
+achievements.forEach(a=>{
+
+let li=document.createElement("li");
+
+li.textContent=a;
+
+ul.appendChild(li);
+
+});
+
+
+}
+
+
+
+
+
+// ガチャ
+
+function gacha(){
+
+
+let r=Math.random()*100;
+
+
+let result;
+
+
+if(r<5){
+
+result=["SSR!!","+200XP",200];
+
+}
+
+else if(r<20){
+
+result=["SR!","+80XP",80];
+
+}
+
+else if(r<50){
+
+result=["R!","+30XP",30];
+
+}
+
+else{
+
+result=["N","+10XP",10];
+
+}
+
+
+
+totalXP+=result[2];
+
+
+localStorage.setItem(
+"totalXP",
+totalXP
+);
+
+
+
+document.getElementById("gachaResult")
+.innerHTML=
+
+"🎰 "+result[0]+" "+result[1];
+
+
+
+updateStatus();
+
+levelCheck();
+
+
+}
+
+
+
+
+// calculateXPを拡張
+
+let oldCalculateXP =
+calculateXP;
+
+
+calculateXP=function(){
+
+
+oldCalculateXP();
+
+
+studyCount++;
+
+
+localStorage.setItem(
+"studyCount",
+studyCount
+);
+
+
+
+updateStreak();
+
+
+achievementCheck();
+
+
+levelCheck();
+
+
+}
+
+
+// 初期表示
+
+updateStreak();
+
+achievementCheck();
+
 }
 
 

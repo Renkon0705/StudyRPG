@@ -4,6 +4,7 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Study RPG</title>
@@ -23,11 +24,13 @@
 
 
 
-<div class="card">
+<div class="status">
+
 
 <h2>
 Lv.<span id="level">1</span>
 </h2>
+
 
 
 <div class="bar">
@@ -37,63 +40,49 @@ Lv.<span id="level">1</span>
 </div>
 
 
+
 <p>
 
 <span id="currentXP">0</span>
+
 /
+
 <span id="nextXP">100</span>
+
 XP
 
 </p>
 
 
-<p>
-
-累計XP：
-<span id="totalXP">0</span>
-
-</p>
-
-
 </div>
+
+
+
 
 
 <div class="card">
 
-<h2>⚠️ データ管理</h2>
 
-<button onclick="resetData()">
-データをリセット
-</button>
-
-</div>
-
-
-<div class="card">
+<h2>⚙️ 勉強項目設定</h2>
 
 
 <button onclick="toggleSetting()">
 
-⚙️ 勉強項目設定
+設定を開閉
 
 </button>
 
-<p id="addCostText"></p>
+
 
 <div id="settingMenu">
 
 
-<h2>
-設定
-</h2>
-
-
 <div id="settingList"></div>
-<p id="addCostText"></p>
 
 
 
 <input id="newName" placeholder="項目名">
+
 
 
 <input id="newXP" type="number" placeholder="XP">
@@ -102,10 +91,16 @@ XP
 
 <button onclick="addStudyItem()">
 
-＋追加
+項目追加
 
 </button>
 
+
+<p id="addCostText">
+
+次の項目解放コスト：Lv.1
+
+</p>
 
 
 </div>
@@ -122,9 +117,7 @@ XP
 <div class="card">
 
 
-<h2>
-📚 今日の勉強
-</h2>
+<h2>📚 今日の勉強</h2>
 
 
 <div id="studyList"></div>
@@ -145,12 +138,13 @@ XP獲得！
 
 
 
-
-<div class="card">
+<div class="result">
 
 
 <h2>
-今日の獲得XP
+
+今日のXP
+
 </h2>
 
 
@@ -165,33 +159,230 @@ XP獲得！
 
 
 
+
+
+
+
+
+<div id="levelPopup">
+
+LEVEL UP!!
+
 </div>
+
+
+
+
+
+
+
 
 <div class="card">
 
-<h2>
-🔥 連日ボーナス
-</h2>
+
+<h2>🎲 今日のイベント</h2>
 
 
-<p id="streak">
-0日連続
+<p id="dailyBonus">
+
+読み込み中...
+
 </p>
 
 
-<p id="streakBonus">
-倍率計算中...
+<p id="weekBonus"></p>
+
+
+<p id="weakBonus"></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>🔥 コンボ</h2>
+
+
+<p id="combo">
+
+まだ勉強していません
+
 </p>
 
 
 </div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>🏆 実績</h2>
+
+
+<ul id="achievement"></ul>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>🎰 XPガチャ</h2>
+
+
+<button onclick="gacha()">
+
+ガチャを回す
+
+</button>
+
+
+<p id="gachaResult"></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>🔥 継続記録</h2>
+
+
+<p id="streak"></p>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="card">
+
+
+<h2>⚙️ 苦手科目設定</h2>
+
+
+
+<label>
+
+数学
+
+<input type="checkbox" id="mathWeak">
+
+</label>
+
+
+
+<label>
+
+英語
+
+<input type="checkbox" id="englishWeak">
+
+</label>
+
+
+
+<label>
+
+化学
+
+<input type="checkbox" id="chemWeak">
+
+</label>
+
+
+
+<label>
+
+物理
+
+<input type="checkbox" id="physicsWeak">
+
+</label>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- 目立たないリセット -->
+
+<div class="reset-area">
+
+
+<button class="reset-button" onclick="resetData()">
+
+データ初期化
+
+</button>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
 
 
 
 <script src="js/xp.js"></script>
+
 <script src="js/streak.js"></script>
+
+<script src="js/achievement.js"></script>
+
+<script src="js/gacha.js"></script>
+
 <script src="js/custom.js"></script>
-<script src="js/main.js"></script>
+
 
 
 </body>

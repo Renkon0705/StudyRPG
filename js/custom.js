@@ -182,3 +182,53 @@ else{
 }
 
 }
+
+// 起動時に項目表示
+function initCustom(){
+
+    renderItems();
+
+}
+
+
+// XP計算
+
+function calculateCustomXP(){
+
+    let xp = 0;
+
+
+    studyItems.forEach((item,index)=>{
+
+        let count =
+        Number(
+            document.getElementById("study"+index).value
+        );
+
+
+        xp += count * item.xp;
+
+    });
+
+
+    if(xp <= 0){
+        return;
+    }
+
+
+    totalXP += xp;
+
+
+    localStorage.setItem(
+        "totalXP",
+        totalXP
+    );
+
+
+    document.getElementById("todayXP").innerHTML =
+    "+" + xp + " XP";
+
+
+    updateStatus();
+
+}

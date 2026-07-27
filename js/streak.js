@@ -7,6 +7,8 @@ localStorage.getItem("lastStudy");
 
 
 
+// 連続日数更新
+
 function updateStreak(){
 
 
@@ -19,20 +21,21 @@ if(lastStudy !== today){
 
 
 let yesterday =
-new Date(Date.now()-86400000)
+new Date(Date.now() - 86400000)
 .toDateString();
 
 
 
 if(lastStudy === yesterday){
 
-streak++;
+    // 昨日も勉強していた
+    streak++;
 
 }
-
 else{
 
-streak=1;
+    // 途切れた
+    streak = 1;
 
 }
 
@@ -53,8 +56,18 @@ today
 }
 
 
+
 document.getElementById("streak").innerHTML =
+
 "🔥 "+streak+"日連続";
+
+
+
+document.getElementById("streakBonus").innerHTML =
+
+"連日ボーナス ×"
++
+getStreakMultiplier().toFixed(2);
 
 
 }
@@ -62,7 +75,8 @@ document.getElementById("streak").innerHTML =
 
 
 
-// 連日ボーナス倍率
+
+// 倍率計算
 
 function getStreakMultiplier(){
 
@@ -71,8 +85,3 @@ return Math.pow(1.1, streak);
 
 
 }
-document.getElementById("streakBonus").innerHTML =
-
-"🔥 連日ボーナス ×"
-+
-getStreakMultiplier().toFixed(2);

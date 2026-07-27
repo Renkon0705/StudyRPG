@@ -98,9 +98,10 @@ function checkLevelUp(){
 let data = getLevel(totalXP);
 
 
-while(level < data.level){
+if(level < data.level){
 
-    level++;
+    level = data.level;
+
 
     localStorage.setItem(
         "level",

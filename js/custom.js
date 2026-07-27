@@ -357,3 +357,13 @@ menu.style.display="none";
 
 
 }
+
+function updateAddCost(){
+
+
+document.getElementById("addCostText").innerHTML =
+
+"次の項目追加コスト：Lv."+addCost;
+
+
+}

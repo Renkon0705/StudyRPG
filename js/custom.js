@@ -122,3 +122,63 @@ saveItems();
 renderItems();
 
 }
+// 設定メニュー開閉
+
+function toggleSetting(){
+
+let menu =
+document.getElementById("settingMenu");
+
+
+if(menu.style.display === "none"){
+
+    menu.style.display = "block";
+
+    localStorage.setItem(
+        "settingOpen",
+        "true"
+    );
+
+}
+
+else{
+
+    menu.style.display = "none";
+
+    localStorage.setItem(
+        "settingOpen",
+        "false"
+    );
+
+}
+
+}
+
+
+
+// 初期状態
+
+function loadSettingMenu(){
+
+let menu =
+document.getElementById("settingMenu");
+
+
+let state =
+localStorage.getItem("settingOpen");
+
+
+
+if(state === "true"){
+
+    menu.style.display="block";
+
+}
+
+else{
+
+    menu.style.display="none";
+
+}
+
+}

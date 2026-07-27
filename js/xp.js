@@ -65,12 +65,15 @@ return total;
 function updateStatus(){
 
 
-document.getElementById("level").innerHTML =
-level;
-
+checkLevelUp();
 
 
 let data = getLevel(totalXP);
+
+
+
+document.getElementById("level").innerHTML =
+level;
 
 
 
@@ -87,8 +90,7 @@ data.next;
 document.getElementById("xpBar").style.width =
 (data.current / data.next * 100) + "%";
 
-checkLevelUp();
-    
+
 }
 
 function checkLevelUp(){

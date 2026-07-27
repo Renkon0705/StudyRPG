@@ -138,6 +138,9 @@ document.getElementById("newName").value;
 let xp =
 Number(document.getElementById("newXP").value);
 
+let level =
+Number(localStorage.getItem("level")) || 1;
+
 
 
 if(level < addCost){
@@ -150,19 +153,6 @@ return;
 
 }
 
-
-level -= addCost;
-
-
-if(level < 1){
-    level = 1;
-}
-
-
-localStorage.setItem(
-"level",
-level
-);
 
 // レベル不足
 
@@ -192,14 +182,19 @@ xp:xp
 
 // レベル消費
 
-totalXP -= 
-getXPFromLevel(addCost);
+level -= addCost;
 
+
+if(level < 1){
+
+    level = 1;
+
+}
 
 
 localStorage.setItem(
-"totalXP",
-totalXP
+    "level",
+    level
 );
 
 

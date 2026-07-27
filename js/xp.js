@@ -65,9 +65,6 @@ return total;
 function updateStatus(){
 
 
-checkLevelUp();
-
-
 let data = getLevel(totalXP);
 
 
